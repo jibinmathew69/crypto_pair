@@ -3,10 +3,11 @@ import requests
 from df_processor import clean_json
 from feather_io import write_file
 
-TOKEN_URL = "https://api.coincap.io/v2/assets"
+TOKEN_URL = "https://api.coincap.io/v2/assets?limit={limit}"
 
-def fetch_symbols():
-    response = requests.get(TOKEN_URL)
+def fetch_symbols(limit=2000):
+    url = TOKEN_URL.format(limit=limit)
+    response = requests.get(url)
 
     if response.status_code != 200:
         return False
