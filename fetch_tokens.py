@@ -1,8 +1,9 @@
+from fetch_price import fetch_token_price
 import requests
 
 TOKEN_URL = "https://api.coincap.io/v2/assets"
 
-def fetch_token_symbol():
+def fetch_symbols():
     response = requests.get(TOKEN_URL)
 
     if response.status_code != 200:
