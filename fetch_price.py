@@ -13,5 +13,5 @@ def fetch_token_price(token_id):
     
     response = response.json()
 
-    return response
+    return response['data']
 
