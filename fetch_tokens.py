@@ -1,7 +1,7 @@
 from fetch_price import fetch_token_price
 import requests
 from df_processor import clean_json
-from feather_io import write_file
+from feather_io import write_file, read_file
 
 TOKEN_URL = "https://api.coincap.io/v2/assets?limit={limit}"
 
@@ -23,4 +23,15 @@ def update_symbols():
 
     df = clean_json(json_data, ["id", "symbol"])
     return write_file(df, "symbols")
+
+def symbol_to_id(symbol):
+    df = read_file("symbols")
+
+    if type(df) == bool:
+        return False
+
+    try:
+        return df[df["symbol"] == symbol].iloc[0]["id"]
+    except:
+        return False
     
