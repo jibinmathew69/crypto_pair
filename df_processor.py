@@ -16,6 +16,7 @@ def get_prices(df):
 def date_intersection(df1, df2):
     df = pd.merge(df1, df2, how='inner', on=["time"], suffixes=['_df1', '_df2'])
     df["priceUsd"] = df["priceUsd_df1"] / df["priceUsd_df2"]
+    df["priceUsd"].round(2, inplace=True)
     del df[['priceUsd_df1', 'priceUsd_df2']]
 
     return df
