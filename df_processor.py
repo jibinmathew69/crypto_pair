@@ -10,3 +10,6 @@ def clean_json(json_data, columns: list):
 def get_start_end_date(df):
     return (df.iloc[0]["date"], df.iloc[-1]["date"])
 
+def get_prices(df):
+    return df['priceUsd'].to_list()
+
