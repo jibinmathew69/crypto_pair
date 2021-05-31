@@ -25,7 +25,7 @@ def format_response(df):
         "prices": prices
     }
 
-def fetch_history(token_id1, token_id2="usd"):
+def fetch_pair_history(token_id1, token_id2="usd"):
     token_id1 = token_id1.lower()
     token_id2 = token_id2.lower()
 
