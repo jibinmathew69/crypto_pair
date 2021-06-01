@@ -22,10 +22,10 @@ def update_symbols():
         return False
 
     df = clean_json(json_data, ["id", "symbol"])
-    return write_file(df, "symbols")
+    return write_file(df, "symbols.dat")
 
 def symbol_to_id(symbol):
-    df = read_file("symbols")
+    df = read_file("symbols.dat")
 
     if type(df) == bool:
         return False
