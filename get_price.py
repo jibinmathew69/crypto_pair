@@ -1,5 +1,5 @@
 import pandas as pd
-from fetch_price import fetch_token_price, fetch_pair_history, format_response
+from fetch_price import fetch_token_price, fetch_pair_history, format_response, fetch_live_price
 from fetch_tokens import symbol_to_id
 from df_processor import clean_json
 from feather_io import write_file, read_file
@@ -44,4 +44,25 @@ def fetch_price(token_id1, token_id2):
         return False
 
     return fetch_pair_history(df1, df2)
+
+def fetch_live_price(token_id1, token_id2):
+    token_id1 = token_id1.lower()
+    token_id2 = token_id2.lower()
+
+    token_id1 = symbol_to_id(token_id1)
+    if type(token_id1) == bool:
+        return False
+
+    token1_price = fetch_live_price(token_id1)
+
+    if token_id2 == 'usd':
+        return token1_price
+
+    token_id2 = symbol_to_id(token_id2)
+    if type(token_id2) == bool:
+        return False
+
+    token2_price = fetch_live_price(token_id2)
+
+    return round(token1_price/token2_price, 5)
     
