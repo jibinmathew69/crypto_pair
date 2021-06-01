@@ -25,7 +25,14 @@ def format_response(df):
         "prices": prices
     }
 
-def fetch_pair_history(token_id1, token_id2="usd"):
+def fetch_pair_history(df1, df2):
+        
+    df = date_intersection(df1, df2)
+    df = price_ratios(df)
+
+    return format_response(df)
+
+def fetch_price(token_id1, token_id2):
     token_id1 = token_id1.lower()
     token_id2 = token_id2.lower()
 
@@ -36,7 +43,7 @@ def fetch_pair_history(token_id1, token_id2="usd"):
     
     if df1.shape[0] < 1:
         return False
-
+    
     if token_id2 == "usd":
         return format_response(df1)
 
@@ -47,8 +54,3 @@ def fetch_pair_history(token_id1, token_id2="usd"):
     
     if df2.shape[0] < 1:
         return False
-
-    df = date_intersection(df1, df2)
-    df = price_ratios(df)
-
-    return format_response(df)
