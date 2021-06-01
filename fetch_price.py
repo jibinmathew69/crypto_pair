@@ -3,6 +3,8 @@ from feather_io import read_file
 from df_processor import get_prices, get_start_end_date, date_intersection, price_ratios
 
 URL = "https://api.coincap.io/v2/assets/{token_id}/history?interval=d1"
+LIVE_URL = "https://api.coincap.io/v2/assets/{token_id}"
+
 
 def fetch_token_price(token_id):
     url = URL.format(token_id = token_id)
@@ -35,3 +37,15 @@ def fetch_pair_history(df1, df2):
     df = price_ratios(df)
 
     return format_response(df)
+
+def fetch_live_price(token_id):
+    url = LIVE_URL.format(token_id = token_id)
+
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        return False
+    
+    response = response.json()
+
+    return response['data']['priceUsd']
