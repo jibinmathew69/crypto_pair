@@ -28,6 +28,10 @@ def format_response(df):
 def fetch_pair_history(df1, df2):
         
     df = date_intersection(df1, df2)
+
+    if df.shape[0] < 1:
+        return False
+
     df = price_ratios(df)
 
     return format_response(df)
