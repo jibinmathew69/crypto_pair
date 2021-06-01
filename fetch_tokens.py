@@ -4,6 +4,7 @@ from df_processor import clean_json
 from feather_io import write_file, read_file
 
 TOKEN_URL = "https://api.coincap.io/v2/assets?limit={limit}"
+SYMBOLS = "symbols.dat"
 
 def fetch_symbols(limit=2000):
     url = TOKEN_URL.format(limit=limit)
@@ -22,10 +23,10 @@ def update_symbols():
         return False
 
     df = clean_json(json_data, ["id", "symbol"])
-    return write_file(df, "symbols.dat")
+    return write_file(df, SYMBOLS)
 
 def symbol_to_id(symbol):
-    df = read_file("symbols.dat")
+    df = read_file(SYMBOLS)
 
     if type(df) == bool:
         return False
