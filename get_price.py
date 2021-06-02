@@ -46,8 +46,8 @@ def fetch_price(token_id1, token_id2):
     return fetch_pair_history(df1, df2)
 
 def fetch_live_price(token_id1, token_id2):
-    token_id1 = token_id1.lower()
-    token_id2 = token_id2.lower()
+    token_id1 = token_id1.upper()
+    token_id2 = token_id2.upper()
 
     token_id1 = symbol_to_id(token_id1)
     if type(token_id1) == bool:
