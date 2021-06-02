@@ -45,7 +45,7 @@ def fetch_price(token_id1, token_id2):
 
     return fetch_pair_history(df1, df2)
 
-def fetch_live_price(token_id1, token_id2):
+def fetch_live_pairprice(token_id1, token_id2):
     token_id1 = token_id1.upper()
     token_id2 = token_id2.upper()
 
@@ -54,6 +54,8 @@ def fetch_live_price(token_id1, token_id2):
         return False
 
     token1_price = fetch_live_price(token_id1)
+    if type(token1_price) == bool:
+        return False
 
     if token_id2 == 'USD':
         return token1_price
@@ -63,6 +65,8 @@ def fetch_live_price(token_id1, token_id2):
         return False
 
     token2_price = fetch_live_price(token_id2)
+    if type(token2_price) == bool:
+        return False
 
-    return round(token1_price/token2_price, 5)
+    return round(float(token1_price)/float(token2_price), 5)
     
