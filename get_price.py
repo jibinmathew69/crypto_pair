@@ -38,7 +38,7 @@ def fetch_price(token_id1, token_id2):
         return format_response(df1)
 
     df2 = read_file(token_id2)
-    df2 = validate_df(df2)
+    df2 = validate_df(df2, token_id2)
 
     if type(df2) == bool:
         return False
