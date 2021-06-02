@@ -15,3 +15,4 @@ def live(token_id1: str, token_id2: str):
 @app.get("/update_tokens")
 def update_tokens():
     return update_symbols()
+    
