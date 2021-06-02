@@ -19,28 +19,28 @@ def validate_df(df, token_id):
         return None
     elif type(df) == bool:
         if not resolve_new_token(token_id):
-            return None
+            return False
         else:
             df = read_file("{}.dat".format(token_id))
     return df
 
 def fetch_price(token_id1, token_id2):
-    token_id1 = token_id1.lower()
-    token_id2 = token_id2.lower()
+    token_id1 = token_id1.upper()
+    token_id2 = token_id2.upper()
 
     df1 = read_file(token_id1)
     df1 = validate_df(df1, token_id1)
 
-    if not df1:
+    if type(df1) == bool:
         return False
 
-    if token_id2 == "usd":
+    if token_id2 == "USD":
         return format_response(df1)
 
     df2 = read_file(token_id2)
     df2 = validate_df(df2)
 
-    if not df2:
+    if type(df2) == bool:
         return False
 
     return fetch_pair_history(df1, df2)
@@ -55,7 +55,7 @@ def fetch_live_price(token_id1, token_id2):
 
     token1_price = fetch_live_price(token_id1)
 
-    if token_id2 == 'usd':
+    if token_id2 == 'USD':
         return token1_price
 
     token_id2 = symbol_to_id(token_id2)
