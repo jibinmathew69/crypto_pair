@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, HTTPException
+from fastapi import FastAPI
 from get_price import fetch_price, fetch_live_price
 
 app = FastAPI()
@@ -10,4 +10,3 @@ def get_history(token_id1: str, token_id2: str):
 @app.get("/live/{token_id1}/{token_id2}")
 def live(token_id1: str, token_id2: str):
     return fetch_live_price(token_id1, token_id2)
-    
