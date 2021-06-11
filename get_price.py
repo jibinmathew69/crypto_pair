@@ -1,8 +1,9 @@
 import pandas as pd
-from fetch_price import fetch_token_price, fetch_pair_history, format_response, fetch_live_price
-from fetch_tokens import symbol_to_id
+import glob
 from df_processor import clean_json
+from fetch_tokens import symbol_to_id
 from feather_io import write_file, read_file
+from fetch_price import fetch_token_price, fetch_pair_history, format_response, fetch_live_price, update_price
 
 def resolve_new_token(token_id):
     token_name = symbol_to_id(token_id)
@@ -97,3 +98,10 @@ def fetch_yearly(token_id1, token_id2, year):
     df2 = df2[(df2["date"]>=start_date) & (df2["date"]<=end_date)]
 
     return fetch_pair_history(df1, df2)
+
+def update_history():
+    symbols = glob.glob("*.dat")
+    symbols = [symbol.split(".")[0] for symbol in symbols].remove("symbols")
+
+    return all([update_price(symbol) for symbol in symbols])
+    
