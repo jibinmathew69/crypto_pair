@@ -29,7 +29,7 @@ def fetch_price(token_id1, token_id2):
     token_id1 = token_id1.upper()
     token_id2 = token_id2.upper()
 
-    df1 = read_file(token_id1)
+    df1 = read_file("{}.dat".format(token_id1))
     df1 = validate_df(df1, token_id1)
 
     if type(df1) == bool:
@@ -38,7 +38,7 @@ def fetch_price(token_id1, token_id2):
     if token_id2 == "USD":
         return format_response(df1)
 
-    df2 = read_file(token_id2)
+    df2 = read_file("{}.dat".format(token_id2))
     df2 = validate_df(df2, token_id2)
 
     if type(df2) == bool:
@@ -75,7 +75,7 @@ def fetch_yearly(token_id1, token_id2, year):
     token_id1 = token_id1.upper()
     token_id2 = token_id2.upper()
 
-    df1 = read_file(token_id1)
+    df1 = read_file("{}.dat".format(token_id1))
     df1 = validate_df(df1, token_id1)
 
     if type(df1) == bool:
@@ -89,7 +89,7 @@ def fetch_yearly(token_id1, token_id2, year):
     if token_id2 == "USD":
         return format_response(df1)
 
-    df2 = read_file(token_id2)
+    df2 = read_file("{}.dat".format(token_id2))
     df2 = validate_df(df2, token_id2)
 
     if type(df2) == bool:
@@ -104,4 +104,3 @@ def update_history():
     symbols = [symbol.split(".")[0] for symbol in symbols].remove("symbols")
 
     return all([update_price(symbol) for symbol in symbols])
-    

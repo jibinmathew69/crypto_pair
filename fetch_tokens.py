@@ -1,4 +1,3 @@
-from fetch_price import fetch_token_price
 import requests
 from df_processor import clean_json
 from feather_io import write_file, read_file

@@ -23,4 +23,3 @@ def get_yearly(year: int, token_id1: str, token_id2: str):
 @app.get("/update_history")
 def update_all_prices():
     return update_history()
-    
