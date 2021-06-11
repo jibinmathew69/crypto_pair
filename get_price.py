@@ -70,3 +70,30 @@ def fetch_live_pairprice(token_id1, token_id2):
 
     return round(float(token1_price)/float(token2_price), 5)
     
+def fetch_yearly(token_id1, token_id2, year):
+    token_id1 = token_id1.upper()
+    token_id2 = token_id2.upper()
+
+    df1 = read_file(token_id1)
+    df1 = validate_df(df1, token_id1)
+
+    if type(df1) == bool:
+        return False
+
+    start_date = "{}-01-01T00:00:00.000Z".format(year)
+    end_date = "{}-12-31T00:00:00.000Z".format(year)
+
+    df1 = df1[(df1["date"]>=start_date) & (df1["date"]<=end_date)]
+
+    if token_id2 == "USD":
+        return format_response(df1)
+
+    df2 = read_file(token_id2)
+    df2 = validate_df(df2, token_id2)
+
+    if type(df2) == bool:
+        return False
+
+    df2 = df2[(df2["date"]>=start_date) & (df2["date"]<=end_date)]
+
+    return fetch_pair_history(df1, df2)
