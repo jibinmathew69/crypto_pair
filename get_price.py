@@ -101,6 +101,7 @@ def fetch_yearly(token_id1, token_id2, year):
 
 def update_history():
     symbols = glob.glob("*.dat")
-    symbols = [symbol.split(".")[0] for symbol in symbols].remove("symbols")
+    symbols = [symbol.split(".")[0] for symbol in symbols]
+    symbols.remove("symbols")
 
     return all([update_price(symbol) for symbol in symbols])
