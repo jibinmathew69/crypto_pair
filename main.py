@@ -19,4 +19,8 @@ def update_tokens():
 @app.get("/{year}/{token_id1}/{token_id2}")
 def get_yearly(year: int, token_id1: str, token_id2: str):
     return fetch_yearly(token_id1, token_id2, year)
+
+@app.get("/update_history")
+def update_all_prices():
+    return update_history()
     
