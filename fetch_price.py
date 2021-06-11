@@ -38,6 +38,21 @@ def fetch_pair_history(df1, df2):
 
     return format_response(df)
 
+def fetch_yearly_history(df1, df2, year: int):
+    df = date_intersection(df1, df2)
+
+    start_date = "{}-01-01T00:00:00.000Z".format(year)
+    end_date = "{}-12-31T00:00:00.000Z".format(year)
+
+    df = df[(df["date"]>=start_date) & (df["date"]<=end_date)]
+
+    if df.shape[0] < 1:
+        return False
+
+    df = price_ratios(df)
+
+    return format_response(df)
+
 def fetch_live_price(token_id):
     url = LIVE_URL.format(token_id = token_id)
 
