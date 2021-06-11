@@ -68,16 +68,14 @@ def update_price(token_id):
         return False
 
     last_time = df["time"]
-    start_time = datetime.fromtimestamp(last_time) + timedelta(days=1)
+    start_time = datetime.fromtimestamp(last_time/1000) + timedelta(days=1)
     start_time = int(start_time.timestamp()*1000)
-    yesterday = datetime.utcnow().date() - timedelta(days=1)
-    end_time = int(datetime(yesterday.year, yesterday.month, yesterday.day, 0, 0, 0, 0).timestamp()*1000)
+    end_time = int(datetime.utcnow().timestamp()*1000)
 
-    url = URL.format(token_id = token_id)+"&start={}&end={}".format(start_time, end_time)
+    url = URL.format(token_id=token_name)+"&start={}&end={}".format(start_time, end_time)
     price_dict = fetch_token_price(token_id, url)
     if not price_dict:
         return False
 
     df = clean_json(price_dict, ['priceUsd', 'time', 'date'])
     return append_file(df, token_file)
-    
