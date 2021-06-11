@@ -74,8 +74,10 @@ def update_price(token_id):
 
     url = URL.format(token_id=token_name)+"&start={}&end={}".format(start_time, end_time)
     price_dict = fetch_token_price(token_id, url)
-    if not price_dict:
+    if type(price_dict) == bool:
         return False
+    elif price_dict == []:
+        return True
 
     df = clean_json(price_dict, ['priceUsd', 'time', 'date'])
     return append_file(df, token_file)
