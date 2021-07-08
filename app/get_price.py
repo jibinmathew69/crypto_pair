@@ -103,6 +103,5 @@ def update_history():
     symbols = glob.glob("*.dat")
     symbols = [symbol.split(".")[0] for symbol in symbols]
     symbols.remove("symbols")
-    print(symbols)
 
     return all([update_price(symbol) for symbol in symbols])
