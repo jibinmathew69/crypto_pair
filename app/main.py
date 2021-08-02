@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from get_price import fetch_price, fetch_live_pairprice, fetch_yearly, update_history
+from get_price import fetch_price, fetch_live_pairprice, fetch_yearly, update_history, fetch_by_date
 from fetch_tokens import update_symbols
 
 app = FastAPI()
@@ -23,4 +23,7 @@ def get_yearly(year: int, token_id1: str, token_id2: str):
 @app.get("/update_history")
 def update_all_prices():
     return update_history()
-    
+
+@app.get("/{token_id1}/{token_id2}/{start}/{end}")
+def fetch(token_id1: str, token_id2: str, start: str, end: str):
+    return fetch_by_date(token_id1, token_id2, start, end)
