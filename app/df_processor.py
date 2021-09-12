@@ -1,4 +1,4 @@
-import re
+import datetime
 import pandas as pd
 from pandas.io import json
 
@@ -14,6 +14,16 @@ def get_start_end_date(df):
 
 def get_prices(df):
     return df['priceUsd'].to_list()
+
+def get_extremes(df):
+    return (df['priceUsd'].min(), df['priceUsd'].max())
+
+def get_date_and_price(df):
+    def get_date(date_string):
+        date_parts = datetime.datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%S.%fZ').date()
+        return "Date({}, {}, {})".format(date_parts.year, date_parts.month-1, date_parts.day) 
+
+    return df.apply(lambda tdf: [get_date(tdf["date"]), tdf["priceUsd"]], axis=1).to_list()
 
 def date_intersection(df1, df2):
     df = pd.merge(df1, df2, how='inner', on=["time"], suffixes=['_df1', '_df2'])
