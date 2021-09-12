@@ -39,8 +39,7 @@ def format_response_js(df, pair):
         "meta": {
             "start_date": df_dates[0],
             "end_date": df_dates[1],
-            "min": df_extremes[0],
-            "max": df_extremes[1],
+            "range": {"low": df_extremes[0], "high": df_extremes[1]},
             "pair": {"from": pair[0], "to": pair[1]}
         },
         "payload": {
