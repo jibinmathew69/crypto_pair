@@ -24,6 +24,6 @@ def get_yearly(year: int, token_id1: str, token_id2: str):
 def update_all_prices():
     return update_history()
 
-@app.get("/{token_id1}/{token_id2}/{start}/{end}")
+@app.get("/{token_id1}/{token_id2}/")
 def fetch(token_id1: str, token_id2: str, start: str, end: str):
     return fetch_by_date(token_id1, token_id2, start, end)
