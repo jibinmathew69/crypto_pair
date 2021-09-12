@@ -3,7 +3,8 @@ import glob
 from df_processor import clean_json
 from fetch_tokens import symbol_to_id
 from feather_io import write_file, read_file
-from fetch_price import fetch_token_price, fetch_pair_history, format_response, fetch_live_price, update_price
+from fetch_price import fetch_token_price, fetch_pair_history, format_response, \
+    fetch_live_price, update_price, format_response_js
 
 def resolve_new_token(token_id):
     token_name = symbol_to_id(token_id)
@@ -36,7 +37,7 @@ def fetch_price(token_id1, token_id2):
         return False
 
     if token_id2 == "USD":
-        return format_response(df1)
+        return format_response_js(df1, (token_id1, token_id2))
 
     df2 = read_file("{}.dat".format(token_id2))
     df2 = validate_df(df2, token_id2)
@@ -44,7 +45,7 @@ def fetch_price(token_id1, token_id2):
     if type(df2) == bool:
         return False
 
-    return fetch_pair_history(df1, df2)
+    return fetch_pair_history(df1, df2, (token_id1, token_id2))
 
 def fetch_live_pairprice(token_id1, token_id2):
     token_id1 = token_id1.upper()
@@ -95,7 +96,7 @@ def fetch_by_date(token_id1, token_id2, start, end):
     df1 = df1[(df1["date"]>=start_date) & (df1["date"]<=end_date)]
 
     if token_id2 == "USD":
-        return format_response(df1)
+        return format_response_js(df1, (token_id1, token_id2))
 
     df2 = read_file("{}.dat".format(token_id2))
     df2 = validate_df(df2, token_id2)
@@ -105,7 +106,7 @@ def fetch_by_date(token_id1, token_id2, start, end):
 
     df2 = df2[(df2["date"]>=start_date) & (df2["date"]<=end_date)]
 
-    return fetch_pair_history(df1, df2)
+    return fetch_pair_history(df1, df2, (token_id1, token_id2))
 
 
 def update_history():
