@@ -5,32 +5,32 @@ from fetch_tokens import update_symbols
 
 app = FastAPI()
 
-@app.get("/history/{token_id1}/{token_id2}")
-def get_history(token_id1: str, token_id2: str):
-    return fetch_price(token_id1, token_id2)
+@app.get("/history/{_from}/{_to}")
+def get_history(_from: str, _to: str):
+    return fetch_price(_from, _to)
 
-@app.get("/live/{token_id1}/{token_id2}")
-def live(token_id1: str, token_id2: str):
-    return fetch_live_pairprice(token_id1, token_id2)
+@app.get("/live/{_from}/{_to}")
+def live(_from: str, _to: str):
+    return fetch_live_pairprice(_from, _to)
 
 @app.get("/update_tokens")
 def update_tokens():
     return update_symbols()
     
-@app.get("/{year}/{token_id1}/{token_id2}")
-def get_yearly(year: int, token_id1: str, token_id2: str):
-    return fetch_yearly(token_id1, token_id2, year)
+@app.get("/{year}/{_from}/{_to}")
+def get_yearly(year: int, _from: str, _to: str):
+    return fetch_yearly(_from, _to, year)
 
 @app.get("/update_history")
 def update_all_prices():
     return update_history()
 
-@app.get("/{token_id1}/{token_id2}/")
-def fetch(token_id1: str, token_id2: str, start: str, end: str):
-    return fetch_by_date(token_id1, token_id2, start, end)
+@app.get("/{_from}/{_to}/")
+def fetch(_from: str, _to: str, start: str, end: str):
+    return fetch_by_date(_from, _to, start, end)
 
 @app.get("/ytd")
-def fetch_ytd(token_id1: str, token_id2: str):
+def fetch_ytd(_from: str, _to: str):
     today = date.today()
     previous_year = date(today.year-1, today.month, today.day)
-    return fetch_by_date(token_id1, token_id2, previous_year.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
+    return fetch_by_date(_from, _to, previous_year.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
