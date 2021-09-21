@@ -5,11 +5,11 @@ from fetch_tokens import update_symbols
 
 app = FastAPI()
 
-@app.get("/history/{_from}/{_to}")
+@app.get("/history/")
 def get_history(_from: str, _to: str):
     return fetch_price(_from, _to)
 
-@app.get("/live/{_from}/{_to}")
+@app.get("/live/")
 def live(_from: str, _to: str):
     return fetch_live_pairprice(_from, _to)
 
@@ -17,7 +17,7 @@ def live(_from: str, _to: str):
 def update_tokens():
     return update_symbols()
     
-@app.get("/{year}/{_from}/{_to}")
+@app.get("/{year}/")
 def get_yearly(year: int, _from: str, _to: str):
     return fetch_yearly(_from, _to, year)
 
@@ -25,7 +25,7 @@ def get_yearly(year: int, _from: str, _to: str):
 def update_all_prices():
     return update_history()
 
-@app.get("/{_from}/{_to}/")
+@app.get("/")
 def fetch(_from: str, _to: str, start: str, end: str):
     return fetch_by_date(_from, _to, start, end)
 
