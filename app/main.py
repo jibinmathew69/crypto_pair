@@ -29,6 +29,12 @@ def update_all_prices():
 def fetch(_from: str, _to: str, start: str, end: str):
     return fetch_by_date(_from, _to, start, end)
 
+@app.get("/mtd/{month}")
+def fetch_mtd(month: int, _from: str, _to: str):
+    today = date.today()
+    previous_months = date(today.year, today.month-month, today.day)
+    return fetch_by_date(_from, _to, previous_months.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
+
 @app.get("/ytd/")
 def fetch_ytd(_from: str, _to: str):
     today = date.today()
