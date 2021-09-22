@@ -25,6 +25,9 @@ def fetch_token_price(token_id, url=None):
 
 def format_response(df):
     df_dates = get_start_end_date(df)
+    if type(df_dates) == bool:
+        return df_dates
+
     prices = get_prices(df)
     return {
         "start_date": df_dates[0],
@@ -34,7 +37,11 @@ def format_response(df):
 
 def format_response_js(df, pair):
     df_dates = get_start_end_date(df)
+    if type(df_dates) == bool:
+        return df_dates
+        
     df_extremes = get_extremes(df)
+    print(df_extremes)
     return {
         "meta": {
             "start_date": df_dates[0],
