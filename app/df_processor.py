@@ -14,11 +14,13 @@ def get_start_end_date(df):
         return (df.iloc[0]["date"], df.iloc[-1]["date"])
     except:
         return False
-        
+
 def get_prices(df):
     return df['priceUsd'].to_list()
 
 def get_extremes(df):
+    if df.shape < 1:
+        return False
     return (df['priceUsd'].min(), df['priceUsd'].max())
 
 def get_date_and_price(df):

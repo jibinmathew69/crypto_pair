@@ -39,9 +39,10 @@ def format_response_js(df, pair):
     df_dates = get_start_end_date(df)
     if type(df_dates) == bool:
         return df_dates
-        
+
     df_extremes = get_extremes(df)
-    print(df_extremes)
+    if type(df_extremes) == bool:
+        return False
     return {
         "meta": {
             "start_date": df_dates[0],
