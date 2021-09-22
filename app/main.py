@@ -16,18 +16,16 @@ def live(_from: str, _to: str):
 @app.get("/update_tokens/")
 def update_tokens():
     return update_symbols()
-    
-@app.get("/{year}/")
-def get_yearly(year: int, _from: str, _to: str):
-    return fetch_yearly(_from, _to, year)
 
 @app.get("/update_history/")
 def update_all_prices():
     return update_history()
 
-@app.get("/")
-def fetch(_from: str, _to: str, start: str, end: str):
-    return fetch_by_date(_from, _to, start, end)
+@app.get("/ytd/")
+def fetch_ytd(_from: str, _to: str):
+    today = date.today()
+    previous_year = date(today.year-1, today.month, today.day)
+    return fetch_by_date(_from, _to, previous_year.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
 
 @app.get("/mtd/{month}")
 def fetch_mtd(month: int, _from: str, _to: str):
@@ -35,8 +33,11 @@ def fetch_mtd(month: int, _from: str, _to: str):
     previous_months = date(today.year, today.month-month, today.day)
     return fetch_by_date(_from, _to, previous_months.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
 
-@app.get("/ytd/")
-def fetch_ytd(_from: str, _to: str):
-    today = date.today()
-    previous_year = date(today.year-1, today.month, today.day)
-    return fetch_by_date(_from, _to, previous_year.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
+@app.get("/{year}/")
+def get_yearly(year: int, _from: str, _to: str):
+    return fetch_yearly(_from, _to, year)
+
+@app.get("/")
+def fetch(_from: str, _to: str, start: str, end: str):
+    return fetch_by_date(_from, _to, start, end)
+
