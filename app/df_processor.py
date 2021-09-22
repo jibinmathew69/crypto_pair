@@ -19,7 +19,7 @@ def get_prices(df):
     return df['priceUsd'].to_list()
 
 def get_extremes(df):
-    if df.shape < 1:
+    if df.shape[0] < 1:
         return False
     return (df['priceUsd'].min(), df['priceUsd'].max())
 

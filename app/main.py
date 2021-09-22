@@ -1,5 +1,5 @@
 from datetime import date
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from get_price import fetch_price, fetch_live_pairprice, fetch_yearly, update_history, fetch_by_date
 from fetch_tokens import update_symbols
 
@@ -28,7 +28,7 @@ def fetch_ytd(_from: str, _to: str):
     return fetch_by_date(_from, _to, previous_year.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
 
 @app.get("/mtd/{month}")
-def fetch_mtd(month: int, _from: str, _to: str):
+def fetch_mtd(_from: str, _to: str, month: int = Path(..., ge=1, le=12)):
     today = date.today()
     previous_months = date(today.year, today.month-month, today.day)
     return fetch_by_date(_from, _to, previous_months.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d"))
