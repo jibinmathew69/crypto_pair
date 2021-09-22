@@ -12,6 +12,9 @@ def resolve_new_token(token_id):
         return False
 
     price_dict = fetch_token_price(token_name)
+    if type(price_dict) == bool:
+        return price_dict
+        
     df = clean_json(price_dict, ['priceUsd', 'time', 'date'])
     return write_file(df, "{}.dat".format(token_id))
 
