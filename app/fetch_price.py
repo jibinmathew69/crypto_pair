@@ -14,7 +14,11 @@ def fetch_token_price(token_id, url=None):
     if not url:
         url = URL.format(token_id = token_id)
     
-    response = requests.get(url)
+    headers = {
+        'Accept-Encoding': 'gzip',
+        'Authorization': 'Bearer a64a6393-3eca-4a90-b76f-1f92b018b2af'
+    }
+    response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
         return False
@@ -72,7 +76,11 @@ def fetch_pair_history(df1, df2, pair):
 def fetch_live_price(token_id):
     url = LIVE_URL.format(token_id = token_id)
 
-    response = requests.get(url)
+    headers = {
+        'Accept-Encoding': 'gzip',
+        'Authorization': 'Bearer a64a6393-3eca-4a90-b76f-1f92b018b2af'
+    }
+    response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
         return False
