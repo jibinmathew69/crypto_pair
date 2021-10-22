@@ -34,4 +34,4 @@ def symbol_to_id(symbol):
         return df[df["symbol"] == symbol].iloc[0]["id"]
     except:
         return False
-    
+ 
