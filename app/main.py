@@ -2,6 +2,7 @@ from datetime import date
 from fastapi import FastAPI, Path
 from get_price import fetch_price, fetch_live_pairprice, fetch_yearly, update_history, fetch_by_date
 from fetch_tokens import update_symbols
+from fetch_supply import get_supply
 
 app = FastAPI()
 
@@ -20,6 +21,10 @@ def update_tokens():
 @app.get("/update_history/")
 def update_all_prices():
     return update_history()
+
+@app.get("/crypto")
+def crypto(symbol: str):
+    return get_supply(symbol)
 
 @app.get("/ytd/")
 def fetch_ytd(_from: str, _to: str):
