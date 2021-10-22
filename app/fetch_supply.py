@@ -26,7 +26,7 @@ def get_supply(token_id):
         "payload": {
             "price": float(response['data']['priceUsd']),
             "supply": {
-                "total": int(float(response['data']["maxSupply"])),
+                "total": int(float(response['data']["maxSupply"])) if response['data']["maxSupply"] else None,
                 "issued": int(float(response['data']["supply"])),
             },
             "symbol": token_id,
