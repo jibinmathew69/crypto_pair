@@ -24,10 +24,10 @@ def get_supply(token_id):
     result = {
         "error": None,
         "payload": {
-            "price": response['data']['priceUsd'],
+            "price": float(response['data']['priceUsd']),
             "supply": {
-                "total": response['data']["maxSupply"],
-                "issued": response['data']["supply"],
+                "total": int(float(response['data']["maxSupply"])),
+                "issued": int(float(response['data']["supply"])),
             },
             "symbol": token_id,
             "name": token_name,
