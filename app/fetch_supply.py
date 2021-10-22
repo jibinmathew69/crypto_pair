@@ -11,8 +11,12 @@ def get_supply(token_id):
         return False
 
     mcap_url = MCAP_URL.format(asset=token_name)
-    response = requests.get(mcap_url)
-
+    headers = {
+        'Accept-Encoding': 'gzip',
+        'Authorization': 'Bearer a64a6393-3eca-4a90-b76f-1f92b018b2af'
+    }
+    response = requests.get(mcap_url, headers=headers)
+    
     if response.status_code != 200:
         return False
     
